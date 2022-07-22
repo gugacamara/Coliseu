@@ -1,0 +1,37 @@
+Algoritmo Controle de água
+
+Var
+N, n_apartamento, controle, mg_apartamento: Inteiro
+g_apartamento, maiorGasto: Real
+
+Início
+
+	Escreva(“Digite a quantidade de apartamentos”)
+	Leia(“N”) 
+	controle = 1
+	maiorGasto = 0
+	mg_apartamento = 0
+
+		Enquanto(controle <= N) Faça
+
+			Escreva(“Digite o número do seu apartamento”)
+			Leia(“n_apartamento”) 
+			Escreva(“Digite o gasto em litros do seu apartamento”)
+			Leia(“g_apartamento”)
+ 
+				Se (g_apartamento > maiorGasto) Então
+
+           				maiorGasto <- g_apartamento
+           				maiorGasto <- maiorGasto/1000
+           				mg_apartamento <- n_apartamento
+					Escreva(“O apartamento de numero", mg_apartamento , “possui o gasto de”, maiorGasto , “M3 de água, sendo o maior do prédio”)
+	
+				Fim_se
+
+			controle <- controle + 1
+
+		Fim_enquanto
+
+Fim
+
+

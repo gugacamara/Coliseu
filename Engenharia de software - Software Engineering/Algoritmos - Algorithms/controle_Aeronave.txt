@@ -1,0 +1,88 @@
+Algoritimo - Abastecimento de aeronave
+
+
+    	Função Destino ( distancia, alternativo : Real) : Real
+	
+	Var
+        
+		distanciaTotal: Real
+	
+	Inicio
+
+		distanciaTotal <- (distancia + alternativo) * 1.3
+		
+		Retorne distanciaTotal
+
+	Fim_função
+
+	
+	Função Combustivel ( distanciaTotal, gastoKm : Real) : Real
+	
+	Var
+
+		combustivelTotal: Real
+	
+	Inicio
+
+		combustivelTotal <- distanciaTotal * gastoKm
+
+		Retorne combustivelTotal
+
+	Fim_função
+
+
+	Função Abastecimento ( combustivelTotal, qtdAtual : Real) : Real
+	
+	Var
+		combustivelFaltante: Real
+	
+	Inicio
+
+		combustivelFaltante <- combustivelTotal - qtdAtual
+
+ 		Retorne combustivelFaltante
+
+	Fim_função
+
+Var 
+
+	gastoKm, qtdMaxima, distancia, alternativo, qtdAtual, distanciaTotal2, combustivelTotal2:  Real
+
+Inicio 
+
+	Escreva ("qual a média de combustivel por KM?")
+	Leia ("gastoKm")
+
+	Escreva ("qual a capacidade máxima do tanque em litros?")
+	Leia ("qtdMaxima")
+
+	Escreva ("qual a distância para o destino em KM?")
+	Leia ("distancia")
+
+	Escreva ("qual a distância para o trecho alternativo em KM?")
+	Leia ("alternativo")
+
+	Escreva ("qual a quantidade de combustivel atual?")
+	Leia ("qtdAtual")
+
+	distanciaTotal2 <- Destino(distancia, alternativo)
+     	combustivelTotal2 <- Combustivel(distanciaTotal2, gastoKm)	
+
+
+		Se combustivelTotal2 > qtdMaxima Então
+
+			“Voo Reprovado, reveja seu planejamento.”
+
+		Senão
+
+			"Voo Aprovado, bom voo!"		
+
+			Escreva("O trecho principal é:", distancia)
+			Escreva("O trecho alternativo é:", alternativo)	
+			Escreva("O trecho total com a margem segura é:", Destino(distancia, alternativo))
+			Escreva("A quantidade de combustível necessária para o trecho total é:", Combustivel(distanciaTotal2, gastoKm))
+			Escreva("A quantidade necessária de abastecimento é:", Abastecimento(combustivelTotal2, qtdAtual))	
+
+		Fim_se
+
+Fim
