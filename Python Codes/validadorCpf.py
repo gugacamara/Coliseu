@@ -1,64 +1,79 @@
 import re
 
-MULT_CPF = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2]
 
-def remover_caracteres(cpf):
-    return re.sub(r'[^0-9]', '', cpf)
+class ValidadorCpf:
+    def __init__(self, cpf):
+        self.cpf = cpf
+        
+    #removendo caracteres especiais com expressão regular
+    def remover_caracteres(self, cpf):
+        return re.sub(r'[^0-9]', '', cpf)
 
-def verificar_sequencia(cnpj):
     #todas as sequencias são validáveis, por isso verificar se é e eliminar
-    sequencia = cnpj[0] * len(cnpj)
-    if sequencia == cnpj:
-        return True
-    else:
-        return False
+    def verificar_sequencia(self, cpf):
+        sequencia = cpf[0] * len(cpf)
+        if sequencia == cpf:
+            return True
+        else:
+            return False
 
-def encontrando_digito(novo_cpf, mult_cpf):
-    mult = [x * y for x, y in zip(novo_cpf, mult_cpf)]
-    soma = sum(mult)
-    digito = 11 - (soma % 11)
-    if digito > 9:
-        digito = 0
-    return digito
+    #encontrando o digito
+    def encontrando_digito(self, cut_cpf):
+        MULT_CPF = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2]
+        if len(cut_cpf) == 9:
+            MULT_CPF = MULT_CPF[1:10]
+            
+        mult = [x * y for x, y in zip(cut_cpf, MULT_CPF)]
+        soma = sum(mult)
+        digito = 11 - (soma % 11)
+        if digito > 9:
+            digito = 0
+        return digito
 
-def inserindo_caracteres(cpf):
-    return f'{cpf[0:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:11]}'
+    #inserindo caracteres especiais
+    def inserindo_caracteres(self, cpf):
+        return f'{cpf[0:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:11]}'
 
-def valida(cpf):
-    #cpf1 é o cpf digitado pelo usuario
-    #cpf2 é o cpf fatiado para ser calculado e gerado os dois valores finais
-    #cpf_string é o cpf2 para ser comparado com o cpf1
+    def valida(self, remover_caracteres, verificar_sequencia, encontrando_digito, inserindo_caracteres, cpf):
+        #cpfUser é o cpf digitado pelo usuario
+        #cpf_teste é o cpf fatiado para ser calculado e gerado os dois valores finais
+        #cpf_teste_string é o cpf_teste para ser comparado com o cpfUser
 
-    cpf1 = remover_caracteres(cpf)
+        cpfUser = remover_caracteres(cpf)
 
-    if len(cpf1) != 11:
-        print(f'O CPF está incorreto!')
-        return False
+        if len(cpfUser) != 11:
+            print(f'O CPF está incorreto!')
+            return False
 
-    if verificar_sequencia(cpf1):
-        print('O CPF não pode ser uma sequência!')
-        return False
+        if verificar_sequencia(cpfUser):
+            print('O CPF não pode ser uma sequência!')
+            return False
 
-    cpf2 = list(cpf1[0:9])
-    cpf2 = [int(i) for i in cpf2]
+        cpf_teste = list(cpfUser[0:9])
+        cpf_teste = [int(i) for i in cpf_teste]
+        
+        #encontrando o primeiro digito
+        primeiro_digito = encontrando_digito(cpf_teste)
+        cpf_teste.append(primeiro_digito)
 
-    #encontrando o primeiro digito
-    primeiro_digito = encontrando_digito(cpf2, MULT_CPF[1:10])
-    cpf2.append(primeiro_digito)
+        #encontrando o segundo digito
+        segundo_digito = encontrando_digito(cpf_teste)
+        cpf_teste.append(segundo_digito)
 
-    #encontrando o segundo digito
-    segundo_digito = encontrando_digito(cpf2, MULT_CPF)
-    cpf2.append(segundo_digito)
+        #transformando em string para comparar com o cpfUser
+        cpf_teste_string = "".join(map(str, cpf_teste))
 
-    cpf_string = "".join(map(str, cpf2))
+        #quando for válido mostrar o cpf formatado corrigido, inválido mostra o que o usuário digitou
+        if cpfUser == cpf_teste_string:
+            cpf_formatado = inserindo_caracteres(cpf_teste_string)
+            return print(f'O CPF {cpf_formatado} é válido!')
+        else:
+            cpf_formatado = inserindo_caracteres(cpfUser)
+            return print(f'O CPF {cpf_formatado} é inválido!')
 
-    #quando for válido mostrar o cpf formatado corrigido, inválido mostra o que o usuário digitou
-    if cpf1 == cpf_string:
-        cpf_formatado = inserindo_caracteres(cpf_string)
-        return print(f'O CPF {cpf_formatado} é válido!')
-    else:
-        cpf_formatado = inserindo_caracteres(cpf1)
-        return print(f'O CPF {cpf_formatado} é inválido!')
+if __name__ == '__main__':
+    cpf = input('Digite o seu CPF.\n')
 
-usuario = input('Digite o seu CPF.\n')
-valida(usuario)
+    usuario = ValidadorCpf(cpf)
+    usuario.valida(usuario.remover_caracteres, usuario.verificar_sequencia, usuario.encontrando_digito, usuario.inserindo_caracteres, usuario.cpf)
+
