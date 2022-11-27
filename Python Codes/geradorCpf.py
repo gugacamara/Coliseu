@@ -16,20 +16,23 @@ class GeradorCpf:
             digito = 0
         return digito
 
-    def inserindo_caracteres(self, cnpj):
-        return f'{cnpj[0:3]}.{cnpj[3:6]}.{cnpj[6:9]}-{cnpj[9:11]}'
+    def inserindo_caracteres(self, cpf):
+        return f'{cpf[0:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:11]}'
 
-    def geradora(self, encontrando_digito, inserindo_caracteres):
+    def geradora(self):
         randomico = [random.randint(1, 9) for x in range(9)]
 
         #encontrando o primeiro digito
-        primeiro_digito = encontrando_digito(randomico)
+        primeiro_digito = self.encontrando_digito(randomico)
         randomico.append(primeiro_digito)
 
         #encontrando o segundo digito
-        segundo_digito = encontrando_digito(randomico)
+        segundo_digito = self.encontrando_digito(randomico)
         randomico.append(segundo_digito)
 
         cpf = "".join(map(str, randomico))
-        print(inserindo_caracteres(cpf))
+        print(self.inserindo_caracteres(cpf))
+
+app = GeradorCpf()
+app.geradora()
 
