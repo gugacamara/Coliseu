@@ -1,22 +1,10 @@
-<h1 align="center">:file_cabinet: Exemplo de README.md</h1>
+<h1 align="center">Coliseu</h1>
 
 ## :memo: Descrição
-Escreva uma descrição do seu projeto
-
-## :books: Funcionalidades
-* <b>Funcionalidade 1</b>: O que essa funcionalidade faz?
+Repositório criado para a publicação de códigos úteis das mais diferentes linguagens.
 
 ## :wrench: Tecnologias utilizadas
-* Tecnologia;
-
-## :rocket: Rodando o projeto
-Para rodar o repositório é necessário clonar o mesmo, dar o seguinte comando para iniciar o projeto:
-```
-<linha de comando>
-```
-
-## :soon: Implementação futura
-* O que será implementado na próxima sprint?
+* Python
 
 ## :handshake: Colaboradores
 <table>
@@ -33,4 +21,5 @@ Para rodar o repositório é necessário clonar o mesmo, dar o seguinte comando 
 </table>
 
 ## :dart: Status do projeto
+* Em construção.
 
